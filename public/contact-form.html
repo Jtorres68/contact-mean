@@ -4,19 +4,21 @@
   </div>
 </div>
 <div class="container">
-  <div>
+  <div name="Form">
     <input type="file" id="avatar" class="form-control" name="avatar" accept="image/png, image/jpeg" ng-model="contact.profileimg">
     <p>
       <label>First Name (required)</label> 
-      <input id="name" class="form-control" type="text" ng-model="contact.firstName" required> 
+      <input id="name" class="form-control" type="text" ng-model="contact.firstName" required>
     </p>
+    <p ng-show="Form.contact.firstName.$invalid && !Form.contact.firstName.$pristine" class="help-block">First name is required.</p>
     <p>
       <label>Last Name (required)</label> 
       <input id="name" class="form-control" type="text" ng-model="contact.lastName" required> 
     </p>
+    <p ng-show="Form.contact.lastName.$invalid && !Form.contact.lastName.$pristine" class="help-block">Last name is required.</p>
     <p>
       <label>Email (required)</label> 
-      <input id="name" class="form-control" type="text" ng-model="contact.email" required> 
+      <input id="name" class="form-control" type="text" ng-model="contact.email"> 
     </p>
     <p>
       <label>Phone (Mobile)</label> 
@@ -35,7 +37,7 @@
       <input id="name" class="form-control" type="text" ng-model="contact.twitter"> 
     </p>
     <p>
-      <button style="margin-top:20px" class="btn btn-default" ng-click="saveContact(contact)">Save</button>
+      <button style="margin-top:20px" class="btn btn-default" ng-disabled="Form.$invalid" ng-click="saveContact(contact)">Save</button>
       <button style="margin-top:20px" class="btn btn-default" ng-click="back()">Back</button>
     </p>
   </div>
