@@ -15,21 +15,6 @@ app.use(bodyParser.json());
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
 
-//where and how the files/images should be saved
-var Storage = multer.diskStorage({
-     destination: function(req, file, callback) {
-         callback(null, "./Images");
-     },
-     filename: function(req, file, callback) {
-         callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
-     }
- });
-
-//multer object
- var upload = multer({
-     storage: Storage
- }).array("imgUploader", 3); //Field name and max count
-
 // Connect to the database before starting the application server. 
 mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
   if (err) {
@@ -63,7 +48,6 @@ function handleError(res, reason, message, code) {
  */
 
 app.get("/contacts", function(req, res) {
-   res.sendFile(__dirname + "/index.html");
   db.collection(CONTACTS_COLLECTION).find({}).toArray(function(err, docs) {
     if (err) {
       handleError(res, err.message, "Failed to get contacts.");
@@ -80,13 +64,6 @@ app.post("/contacts", function(req, res) {
   if (!(req.body.firstName || req.body.lastName)) {
     handleError(res, "Invalid user input", "Must provide a first or last name.", 400);
   }
-    
-  upload(req, res, function(err) {
-         if (err) {
-             return res.end("Something went wrong!");
-         }
-         return res.end("File uploaded sucessfully!.");
-     });
 
   db.collection(CONTACTS_COLLECTION).insertOne(newContact, function(err, doc) {
     if (err) {
