@@ -1,7 +1,5 @@
 var express = require("express");
 var path = require("path");
-//multer used for image upload
-var multer = require('multer');
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var ObjectID = mongodb.ObjectID;
@@ -40,7 +38,6 @@ function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
   res.status(code || 500).json({"error": message});
 }
-
 
 /*  "/contacts"
  *    GET: finds all contacts

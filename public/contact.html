@@ -3,7 +3,7 @@
     <h2>
       {{ contact.firstName }} {{ contact.lastName }}
     </h2>
-    <img ng-src="{{contact.profileimg}}" style="height: 100px; width: 200px;">
+    <img ng-show="contact.profileimg" ng-src="{{contact.profileimg}}">
   </div>
   <div class="col-md-3">
   </div>
